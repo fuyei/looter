@@ -12,8 +12,8 @@ var app = express();
  
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
-  app.engine('htm', require('ejs').renderFile);
   /*
+  app.engine('htm', require('ejs').renderFile);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'htm');
   */

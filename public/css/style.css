@@ -1,0 +1,13 @@
+  body,input{margin:0;padding:0;font:normal 14px/18px verdana;} 
+  h2 {margin:0;padding:10px 0px;font-size:1.5em;}
+  #url-box {padding:10px;}
+  #url {width:60%;background:#cdf;height:24px;}
+  #tag-viewer{height:300px;border:1px solid #999;overflow: auto;background:#f9f9f9;margin:0 10px;color:#999;}
+  #tag-viewer div{list-style: none;margin:5px 18px;padding:0px;}
+  #tag-viewer span{padding:4px 7px;}
+  #tag-viewer span:hover {cursor:pointer;background:#ffeae6;}
+  #tag-viewer div div {display:none;}
+  #tag-viewer i {color:#369;}
+  #tag-viewer u {text-decoration: none;font-family:georgia;color:#000;font-size:1.2em;}
+
+  #preview {display:none;}

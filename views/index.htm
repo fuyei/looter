@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Looter: Scrape URL></title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body id="looter">
+<div id="url-box">
+  <h2>Looter: URL Scraper</h2>
+  <input type="text" id="url" value="http://nodejs.org/" />  
+  <button id="get-page">Get URL Content</button>
+</div>
+<div id="tag-viewer">
+  
+</div>
+<div id="preview">
+  <div id="son">
+    <div id="grand">example text node</div>
+    <ul>
+      <li>Li a</li>
+      <li>Li b</li>
+      <li>Li c <span>text</span></li>
+    </ul>
+  </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#get-page').on('click',function() {
+      var $this = $(this);
+      var uri = $('#url').val();
+      $this.prop('disabled', true);
+      if(uri.indexOf('http://')==-1) {
+        uri = 'http://'+uri;
+      } 
+
+      $.ajax({
+        url: '/getUrl',
+        type: 'GET',
+        dataType: 'json',
+        data: {url: uri},
+        complete: function(xhr, textStatus) {
+          //called when complete
+        },
+        success: function(data, textStatus, xhr) {
+          //called when successful
+          $this.prop('disabled', false);
+          if(data.status!='OK') {
+            var errmsg = ''
+            $.each(data.status,function(k,v){
+              errmsg += '<p>'+k+': '+v+'</p>';
+            });
+
+            $('#preview').html(errmsg)
+            return;
+          }
+          /***
+            You may access the HTML Objects through the variable data.dom
+           ***/
+          var tags = genTags(data.dom);
+          $('#tag-viewer').html(tags)
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          //called when there is an error
+        }
+      });
+    })
+
+    function genTags(domArr) {
+      var r = '';
+      $.each(domArr, function(i,el) {
+        // console.log(i, el);
+        if(el.type=='tag') { 
+          // for tag nodes
+          r += ' \n<div class="tag">' + sinTagHead(el);
+          if(el.children && el.children.length>0) {
+            if(el.children.length==1 && (!el.children[0].children || el.children[0].children.length==0)) {
+              r+= '<b> &gt; </b>' + sinTagHead(el.children[0]) ;
+            } else {
+              r+= genTags(el.children);
+            }
+          } else {
+            // non-closed tags, without children arr, just ignore
+          }
+
+          r += '</div>\n ';
+        } else {
+          r+= sinTagHead(el);
+        }
+      }) // end foreach
+      return r;
+    }
+
+    function sinTagHead(el) {
+      if(el.type=='tag') { // for tag nodes
+        var id = el.attrs.id?' #'+el.attrs.id:'';
+        var cls = el.attrs.class?' .'+el.attrs.class:'';
+        var it = el.name=='input' ?  ' [type='+el.attrs.type+']' : '';
+        var hasChlds = (el.children && el.children.length>1);
+        return '<span><u>'+el.name +'</u>'+ id + cls + it + 
+          (el.children&&el.children.length>0 ?' ('+el.children.length+ ')':'')+
+          '</span>';
+      } else if (el.type=='text'){
+        return '<i class="text">'+el.data+'</i>';
+      }
+      return '';
+    }
+
+    $(document).on('click', '#tag-viewer span', function(e){
+      $(this).nextAll('div').toggle()
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -24,6 +24,7 @@ or
   node app.js
 
 That looter app will be initiated, then open up a browser and go to `http://localhost:3000`. You will see a looter viewer.
+
 ![Alt text](/public/images/viewer.PNG "Looter viewer")
 
 ##Limitation

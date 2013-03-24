@@ -1,8 +1,9 @@
 #looter
 
-Looter is a Node.js app that allows you to fetch HTML content of web sites and transfer the HTML tags into JSON objects.
+Looter is a Node.js app that allows you to fetch HTML content of web sites and transfer the HTML tags into JSON objects. The input of looter is URL, the output is the HTML tags structures in JSON format.
 
-The input of looter is URL, the output is the HTML tags structures in JSON format.
+Looter is based on [cheerio](https://github.com/MatthewMueller/cheerio), a jQuery-like parser and selector to load HTML and manipulate on the server side. 
+
 
 ##Installation
 

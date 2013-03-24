@@ -20,9 +20,14 @@ Then it's done.
 
 ##Get Started
 Start the node app in command line:
-  npm start
-or 
-  node app.js
+
+    D:\looter\node app
+
+
+Then you should see the server is running:
+
+    D:\looter\node app
+    Express server listening on port 3000
 
 That looter app will be initiated, then open up a browser and go to `http://localhost:3000`. You will see a looter viewer.
 
